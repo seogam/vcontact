@@ -1,24 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router"
-
+import ContactList from "@/pages/ContactPage/index.vue"
+import ContactItem from "@/pages/ContactPage/_id.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       name: "ContactPageList",
       paht: "/",
-      component: () => import("@/pages/ContactPage/index.vue"),
+      component: ContactList,
       meta: { requiresAuth: true },
     },
     {
       name: "ContactPageItem",
       path: '/:id',
-      component: () => import("@/pages/ContactPage/_id.vue"),
-      meta: { requiresAuth: true }
-    },
-    {
-      name: "ContactSingle",
-      path: '/single/:id',
-      component: () => import("@/pages/ContactPage/single.vue"),
+      component: ContactItem,
       meta: { requiresAuth: true }
     },
     {
