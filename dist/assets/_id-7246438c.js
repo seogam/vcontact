@@ -1,0 +1,1 @@
+import{C as o}from"./ContactForm-0ae746ae.js";import{o as r,d as t}from"./index-d1383c27.js";import"./index-3c3f2d13.js";import"./_plugin-vue_export-helper-c27b6911.js";const n={__name:"_id",setup(a){return(e,c)=>(r(),t(o))}};export{n as default};
