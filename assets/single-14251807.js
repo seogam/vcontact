@@ -1,0 +1,1 @@
+import{u as o}from"./index-3c3f2d13.js";import{o as s,c as n,b as t,t as a,u as r,F as c}from"./index-d1383c27.js";const l=t("h1",null,"dasd",-1),f={__name:"single",setup(u){const e=o().single();return(i,p)=>(s(),n(c,null,[l,t("pre",null,a(r(e)),1)],64))}};export{f as default};
