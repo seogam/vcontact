@@ -17,7 +17,7 @@ export function useAuth() {
   
   function singIn () {
     try {
-      if(formData.login === fakeAccount.login && formData.password && fakeAccount.password) {
+      if(formData.login.toLowerCase() === fakeAccount.login && formData.password.toLowerCase() && fakeAccount.password) {
         const accessToken = new Date().getTime() + Math.random()
         localStorage.setItem("accessToken", JSON.stringify(accessToken))
         isAuthenticated.value = false
