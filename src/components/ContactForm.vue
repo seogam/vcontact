@@ -28,12 +28,13 @@ div(class="contact-form")
         input(v-model="contactItem.roles" type="checkbox" id="tag-2" name="" value="Друг") 
         span(class="contact-form__name")  Друг
 
-    button(v-if="mode === 'add'" type="button" @click="addContact" class="contact-form__btn btn btn--add") Добавить
+    button(v-if="mode === 'add'" @click="addContact" :disabled="!isFilled" type="button"  class="contact-form__btn btn btn--add") Добавить
     button(v-if="mode === 'edit'" type="button" @click="editContact(contactItem.id)" class="contact-form__btn btn btn--add") Редактировать
 
 </template>
 
 <script setup>
+import { computed } from "vue"
 import { vMaska } from "maska"
 import { useContact } from "@/composables/useContact.js"
 const { contactItem, isFilled, addContact, editContact } = useContact()
@@ -43,6 +44,7 @@ const props = defineProps({
     default: "add"
   }
 })
+
 </script>
 
 <style lang="sass" scoped>

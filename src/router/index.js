@@ -31,7 +31,6 @@ const router = createRouter({
       name: "LoginPage",
       path: '/login',
       component: LoginPage,
-      // meta: { requiresAuth: false }
     },
     {
       name: "Error",

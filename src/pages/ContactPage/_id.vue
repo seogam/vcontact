@@ -28,5 +28,4 @@ onMounted(() => {
 const singleContact = computed(() => {
   return contactStore.contactList.find(item => item.id === parseInt(id))
 })
-
 </script>

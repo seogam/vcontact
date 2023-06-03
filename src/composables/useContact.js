@@ -23,8 +23,12 @@ export function useContact() {
   }
 
   const isFilled = computed(() => {
-    console.log(contactItem.name)
-    if(contactItem.name && contactItem.phone && contactItem.email) return true
+    if(
+      contactItem.value.name && 
+      contactItem.value.phone && 
+      contactItem.value.email &&
+      contactItem.value.roles.length
+      ) return true
     return false
   })
 

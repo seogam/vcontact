@@ -24,7 +24,6 @@ const useContactStore = defineStore("contactStore", {
           return (item.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
           item.email.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
           item.phone.includes(state.searchQuery))
-          // return item.roles.indexOf(state.searchQuery)
         } else {
           return state.contactList
         }

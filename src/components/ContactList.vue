@@ -1,5 +1,5 @@
 <template lang="pug">
-TransitionGroup(v-if="contactStore.filteredContactList.length" class="contact-list" name="list" tag="ul")
+transition-group(v-if="contactStore.filteredContactList.length" class="contact-list" name="list" tag="ul")
   li(v-for="item, index in contactStore.filteredContactList" :key="item.id" class="contact-list__item")
     div(class="contact-list__image")
       img(:src="'https://ui-avatars.com/api/&?name=' + item.name" width="75" height="75" :alt="item.name")
@@ -89,4 +89,16 @@ onMounted(() => {
   &__nodata
     color: rgb(108, 117, 125)
     font: 400 14px/100% var(--main-font)
+.list-move,
+.list-enter-active,
+.list-leave-active
+  transition: all 0.5s ease
+
+.list-enter-from,
+.list-leave-to
+  opacity: 0
+  transform: translateX(30px)
+  
+.list-leave-active
+  position: absolute
 </style>
