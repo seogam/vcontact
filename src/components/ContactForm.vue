@@ -1,46 +1,71 @@
 <template lang="pug">
-form(class="contact-form")
-  input(v-model="contactItem.name" type="text" class="contact-form__input input" placeholder="ФИО")
-  input(v-model="contactItem.phone" type="text" class="contact-form__input input" placeholder="Номер телефона")
-  input(v-model="contactItem.email" type="text" class="contact-form__input input" placeholder="Email адрес")
 
-  
-  label(class="contact-form__label" for="tag-0")
-    input(v-model="contactItem.roles" type="checkbox" id="tag-0" name="" value="Семья") 
-    | Семья
+div(class="contact-form")
+  slot(name="title")
+  form(class="contact-form__form")
+    input(v-model="contactItem.name" type="text" class="contact-form__input input" placeholder="ФИО")
+    input(
+      v-model="contactItem.phone" 
+      v-maska 
+      data-maska="+(998) ##-###-##-##" 
+      data-maska-eager 
+      type="text" 
+      class="contact-form__input input" 
+      placeholder="Номер телефона"
+    )
+    input(v-model="contactItem.email" type="text" class="contact-form__input input" placeholder="Email адрес")
 
-  label(class="contact-form__label" for="tag-1")
-    input(v-model="contactItem.roles" type="checkbox" id="tag-1" name="" value="Коллега") 
-    | Коллега
+    div(class="contact-form__roles")
+      label(class="contact-form__label" for="tag-0")
+        input(v-model="contactItem.roles" type="checkbox" id="tag-0" name="" value="Семья") 
+        span(class="contact-form__name") Семья
 
-  label(class="contact-form__label" for="tag-2")
-    input(v-model="contactItem.roles" type="checkbox" id="tag-2" name="" value="Друг") 
-    | Друг
+      label(class="contact-form__label" for="tag-1")
+        input(v-model="contactItem.roles" type="checkbox" id="tag-1" name="" value="Коллега") 
+        span(class="contact-form__name")  Коллега
 
-  button(type="button" @click="addContact" class="contact-form__btn btn") Добавить
+      label(class="contact-form__label" for="tag-2")
+        input(v-model="contactItem.roles" type="checkbox" id="tag-2" name="" value="Друг") 
+        span(class="contact-form__name")  Друг
+
+    button(v-if="mode === 'add'" type="button" @click="addContact" class="contact-form__btn btn btn--add") Добавить
+    button(v-if="mode === 'edit'" type="button" @click="editContact(contactItem.id)" class="contact-form__btn btn btn--add") Редактировать
 
 </template>
 
 <script setup>
-import { useContact } from "../composables/useContact.js"
-const { contactItem, contactList, addContact } = useContact()
+import { vMaska } from "maska"
+import { useContact } from "@/composables/useContact.js"
+const { contactItem, isFilled, addContact, editContact } = useContact()
+const props = defineProps({
+  mode: {
+    type: String,
+    default: "add"
+  }
+})
 </script>
-
 
 <style lang="sass" scoped>
 .contact-form
-  display: flex
-  flex-direction: column
+  $parent: &
+  &__form
+    display: flex
+    flex-direction: column
   &__label
     align-self: baseline
     margin-bottom: 20px
-    border-bottom: 1px dashed rgb(108, 117, 125)
     cursor: pointer
     input[type=checkbox]
       display: none
+    input:checked ~ #{$parent}__name 
+      border-color: transparent
+      color: green
+  &__name
+    color: rgb(108, 117, 125)
+    border-bottom: 1px dashed rgb(108, 117, 125)
   &__btn
     margin-bottom: 20px
-.contact-list
-  display: flex
-  flex-direction: column
+  &__roles
+    display: flex
+    justify-content: space-evenly
 </style>

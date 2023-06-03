@@ -1,25 +1,48 @@
-import { ref, onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia"
-import { useContactStore } from "../stores"
+import { useContactStore } from "@/stores"
+import { useRoute, useRouter } from "vue-router"
 
 export function useContact() {
   const contactStore = useContactStore()
-  const { contactItem, contactList } = storeToRefs(contactStore)
-  const { add, $reset } = contactStore
-  
+  const { contactItem, contactList, searchQuery } = storeToRefs(contactStore)
+  const { add, edit, reset, resetSearch } = contactStore
+
+  const route = useRoute()
+  const router = useRouter()
+  const { id: contactId } = route.params
+
   const addContact = () => {
     add()
-  
+    router.push({ path: '/' })
   }
+
+  const editContact = (contactId) => {
+    edit(contactId)
+    router.push({ path: '/' })
+  }
+
+  const isFilled = computed(() => {
+    console.log(contactItem.name)
+    if(contactItem.name && contactItem.phone && contactItem.email) return true
+    return false
+  })
+
+  const resetSearchQuery = () => {
+    resetSearch()
+  }
+
   onMounted(() => {
-    const list = JSON.parse(localStorage.getItem("contactList")) || [];
-    console.log(list)
-    contactStore.contactList = [...list];
+    reset()
+    contactStore.contactList = [...JSON.parse(localStorage.getItem("contactList"))];
    })
   
   return { 
     contactItem,
     contactList,
-    addContact
+    isFilled,
+    addContact,
+    editContact,
+    resetSearchQuery
   }
 }
